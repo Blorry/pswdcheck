@@ -1,10 +1,12 @@
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import BaseModel
 
 from app.strength import check, generate
 
 app = FastAPI(title="Password Strength API")
 
+Instrumentator().instrument(app).expose(app)
 
 class PasswordIn(BaseModel):
     password: str
